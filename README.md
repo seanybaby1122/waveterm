@@ -1,87 +1,175 @@
-<p align="center">
-  <a href="https://www.waveterm.dev">
-	<picture>
-		<source media="(prefers-color-scheme: dark)" srcset="./assets/wave-dark.png">
-		<source media="(prefers-color-scheme: light)" srcset="./assets/wave-light.png">
-		<img alt="Wave Terminal Logo" src="./assets/wave-light.png" width="240">
-	</picture>
-  </a>
-  <br/>
-</p>
-
-# Wave Terminal
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwavetermdev%2Fwaveterm.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwavetermdev%2Fwaveterm?ref=badge_shield)
-
-Wave is an open-source terminal that combines traditional terminal features with graphical capabilities like file previews, web browsing, and AI assistance. It runs on MacOS, Linux, and Windows.
-
-Modern development involves constantly switching between terminals and browsers - checking documentation, previewing files, monitoring systems, and using AI tools. Wave brings these graphical tools directly into the terminal, letting you control them from the command line. This means you can stay in your terminal workflow while still having access to the visual interfaces you need.
-
-![WaveTerm Screenshot](./assets/wave-screenshot.webp)
-
-## Key Features
-
-- Flexible drag & drop interface to organize terminal blocks, editors, web browsers, and AI assistants
-- Built-in editor for seamlessly editing remote files with syntax highlighting and modern editor features
-- Rich file preview system for remote files (markdown, images, video, PDFs, CSVs, directories)
-- Integrated AI chat with support for multiple models (OpenAI, Claude, Azure, Perplexity, Ollama)
-- Command Blocks for isolating and monitoring individual commands with auto-close options
-- One-click remote connections with full terminal and file system access
-- Rich customization including tab themes, terminal styles, and background images
-- Powerful `wsh` command system for managing your workspace from the CLI and sharing data between terminal sessions
-
-## Installation
-
-Wave Terminal works on macOS, Linux, and Windows.
-
-Platform-specific installation instructions can be found [here](https://docs.waveterm.dev/gettingstarted).
-
-You can also install Wave Terminal directly from: [www.waveterm.dev/download](https://www.waveterm.dev/download).
-
-### Minimum requirements
-
-Wave Terminal runs on the following platforms:
-
-- macOS 11 or later (arm64, x64)
-- Windows 10 1809 or later (x64)
-- Linux based on glibc-2.28 or later (Debian 10, RHEL 8, Ubuntu 20.04, etc.) (arm64, x64)
-
-The WSH helper runs on the following platforms:
-
-- macOS 11 or later (arm64, x64)
-- Windows 10 or later (arm64, x64)
-- Linux Kernel 2.6.32 or later (x64), Linux Kernel 3.1 or later (arm64)
-
-## Roadmap
-
-Wave is constantly improving! Our roadmap will be continuously updated with our goals for each release. You can find it [here](./ROADMAP.md).
-
-Want to provide input to our future releases? Connect with us on [Discord](https://discord.gg/XfvZ334gwU) or open a [Feature Request](https://github.com/wavetermdev/waveterm/issues/new/choose)!
-
-## Links
-
-- Homepage &mdash; https://www.waveterm.dev
-- Download Page &mdash; https://www.waveterm.dev/download
-- Documentation &mdash; https://docs.waveterm.dev
-- Legacy Documentation &mdash; https://legacydocs.waveterm.dev
-- Blog &mdash; https://blog.waveterm.dev
-- X &mdash; https://x.com/wavetermdev
-- Discord Community &mdash; https://discord.gg/XfvZ334gwU
-
-## Building from Source
-
-See [Building Wave Terminal](BUILD.md).
-
-## Contributing
-
-Wave uses GitHub Issues for issue tracking.
-
-Find more information in our [Contributions Guide](CONTRIBUTING.md), which includes:
-
-- [Ways to contribute](CONTRIBUTING.md#contributing-to-wave-terminal)
-- [Contribution guidelines](CONTRIBUTING.md#before-you-start)
-- [Storybook](https://docs.waveterm.dev/storybook)
-
-## License
-
-Wave Terminal is licensed under the Apache-2.0 License. For more information on our dependencies, see [here](./ACKNOWLEDGEMENTS.md).
+{
+    "name": "waveterm",
+    "author": {
+        "name": "Command Line Inc",
+        "email": "info@commandline.dev"
+    },
+    "productName": "Wave",
+    "description": "Open-Source AI-Native Terminal Built for Seamless Workflows",
+    "license": "Apache-2.0",
+    "version": "0.11.2",
+    "homepage": "https://waveterm.dev",
+    "build": {
+        "appId": "dev.commandline.waveterm"
+    },
+    "private": true,
+    "main": "./dist/main/index.js",
+    "type": "module",
+    "browserslist": [
+        "Chrome >= 128"
+    ],
+    "scripts": {
+        "dev": "electron-vite dev",
+        "start": "electron-vite preview",
+        "build:dev": "electron-vite build --mode development",
+        "build:prod": "electron-vite build --mode production",
+        "storybook": "storybook dev -p 6006 --no-open",
+        "build-storybook": "storybook build",
+        "coverage": "vitest run --coverage",
+        "test": "vitest",
+        "postinstall": "electron-builder install-app-deps"
+    },
+    "devDependencies": {
+        "@chromatic-com/storybook": "^3.2.4",
+        "@eslint/js": "^9.20.0",
+        "@rollup/plugin-node-resolve": "^16.0.0",
+        "@storybook/addon-essentials": "^8.5.8",
+        "@storybook/addon-interactions": "^8.5.8",
+        "@storybook/addon-links": "^8.5.8",
+        "@storybook/blocks": "^8.5.8",
+        "@storybook/builder-vite": "^8.5.8",
+        "@storybook/react": "^8.5.8",
+        "@storybook/react-vite": "^8.5.8",
+        "@storybook/test": "^8.5.8",
+        "@storybook/theming": "^8.5.8",
+        "@tailwindcss/vite": "^4.0.6",
+        "@types/color": "^4.2.0",
+        "@types/css-tree": "^2",
+        "@types/debug": "^4",
+        "@types/electron": "^1.6.12",
+        "@types/node": "^22.13.4",
+        "@types/papaparse": "^5",
+        "@types/pngjs": "^6.0.5",
+        "@types/prop-types": "^15",
+        "@types/react": "^18.3.13",
+        "@types/react-dom": "^18.3.1",
+        "@types/semver": "^7",
+        "@types/shell-quote": "^1",
+        "@types/sprintf-js": "^1",
+        "@types/throttle-debounce": "^5",
+        "@types/tinycolor2": "^1",
+        "@types/uuid": "^10.0.0",
+        "@types/ws": "^8",
+        "@vitejs/plugin-react-swc": "^3.8.0",
+        "@vitest/coverage-istanbul": "^3.0.5",
+        "electron": "^34.0.2",
+        "electron-builder": "^26.0",
+        "electron-vite": "^2.3.0",
+        "eslint": "^9.20.1",
+        "eslint-config-prettier": "^10.0.1",
+        "postcss": "^8.5.2",
+        "prettier": "^3.4.2",
+        "prettier-plugin-jsdoc": "^1.3.2",
+        "prettier-plugin-organize-imports": "^4.1.0",
+        "rollup-plugin-flow": "^1.1.1",
+        "sass": "^1.84.0",
+        "semver": "^7.7.1",
+        "storybook": "^8.5.8",
+        "storybook-dark-mode": "^4.0.2",
+        "tailwindcss": "^4.0.6",
+        "tailwindcss-animate": "^1.0.7",
+        "ts-node": "^10.9.2",
+        "tslib": "^2.8.1",
+        "tsx": "^4.19.2",
+        "typescript": "^5.7.3",
+        "typescript-eslint": "^8.24.0",
+        "vite": "^6.1.0",
+        "vite-plugin-image-optimizer": "^1.1.8",
+        "vite-plugin-static-copy": "^2.2.0",
+        "vite-plugin-svgr": "^4.3.0",
+        "vite-tsconfig-paths": "^5.1.4",
+        "vitest": "^3.0.5"
+    },
+    "dependencies": {
+        "@floating-ui/react": "^0.27.4",
+        "@monaco-editor/loader": "^1.4.0",
+        "@monaco-editor/react": "^4.6.0",
+        "@observablehq/plot": "^0.6.17",
+        "@radix-ui/react-label": "^2.1.2",
+        "@radix-ui/react-slot": "^1.1.2",
+        "@react-hook/resize-observer": "^2.0.2",
+        "@table-nav/core": "^0.0.7",
+        "@table-nav/react": "^0.0.7",
+        "@tanstack/react-table": "^8.20.6",
+        "@xterm/addon-fit": "^0.10.0",
+        "@xterm/addon-search": "^0.15.0",
+        "@xterm/addon-serialize": "^0.13.0",
+        "@xterm/addon-web-links": "^0.11.0",
+        "@xterm/addon-webgl": "^0.18.0",
+        "@xterm/xterm": "^5.5.0",
+        "base64-js": "^1.5.1",
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
+        "color": "^4.2.3",
+        "colord": "^2.9.3",
+        "css-tree": "^3.1.0",
+        "dayjs": "^1.11.13",
+        "debug": "^4.4.0",
+        "electron-updater": "^6.6",
+        "env-paths": "^3.0.0",
+        "fast-average-color": "^9.4.0",
+        "htl": "^0.3.1",
+        "html-to-image": "^1.11.13",
+        "immer": "^10.1.1",
+        "jotai": "2.9.3",
+        "monaco-editor": "^0.52.2",
+        "monaco-yaml": "^5.2.3",
+        "overlayscrollbars": "^2.10.1",
+        "overlayscrollbars-react": "^0.5.6",
+        "papaparse": "^5.5.2",
+        "parse-srcset": "^1.0.2",
+        "pngjs": "^7.0.0",
+        "prop-types": "^15.8.1",
+        "react": "^18.3.1",
+        "react-dnd": "^16.0.1",
+        "react-dnd-html5-backend": "^16.0.1",
+        "react-dom": "^18.3.1",
+        "react-frame-component": "^5.2.7",
+        "react-gauge-chart": "^0.5.1",
+        "react-hook-form": "^7.54.2",
+        "react-markdown": "^9.0.3",
+        "react-zoom-pan-pinch": "^3.7.0",
+        "recharts": "^2.15.1",
+        "rehype-highlight": "^7.0.2",
+        "rehype-raw": "^7.0.0",
+        "rehype-sanitize": "^6.0.0",
+        "rehype-slug": "^6.0.0",
+        "remark-flexible-toc": "^1.1.1",
+        "remark-gfm": "^4.0.1",
+        "remark-github-blockquote-alert": "^1.3.0",
+        "rxjs": "^7.8.1",
+        "sharp": "^0.33.5",
+        "shell-quote": "^1.8.2",
+        "sprintf-js": "^1.1.3",
+        "tailwind-merge": "^3.0.1",
+        "throttle-debounce": "^5.0.2",
+        "tinycolor2": "^1.6.0",
+        "use-device-pixel-ratio": "^1.1.2",
+        "winston": "^3.17.0",
+        "ws": "^8.18.0",
+        "yaml": "^2.7.0"
+    },
+    "resolutions": {
+        "send@npm:0.18.0": "0.19.0",
+        "cookie@0.6.0": "^0.7.0",
+        "path-to-regexp@npm:0.1.10": "^0.1.12",
+        "esbuild@npm:^0.24.2": "^0.25",
+        "esbuild@npm:^0.18.0 || ^0.19.0 || ^0.20.0 || ^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0": "^0.25",
+        "esbuild@npm:^0.21.5": "^0.25",
+        "esbuild@npm:~0.23.0": "^0.25"
+    },
+    "packageManager": "yarn@4.6.0",
+    "workspaces": [
+        "docs"
+    ]
+}
