@@ -1,13 +1,51 @@
-root = true
+# prompt: Your .editorconfig file looks well-structured and covers common project needs. Here’s a quick review with a few “perks” (enhancements or tips):
+# ⸻
+# What You’re Doing Well (Baseline Best Practices):
+# 	•	root = true: Ensures this is the root .editorconfig and prevents cascading from parent directories—great for consistency.
+# 	•	LF line endings: Standardizes line endings across OSs—important for team collaboration.
+# 	•	UTF-8 charset: Essential for modern web development.
+# 	•	Final newline enforcement: Helps avoid diffs on added lines and complies with POSIX expectations.
+# ⸻
+# Enhancement Perks:
+# 1. Add Markdown & HTML support
+# If your repo includes documentation or static content:
+# [*.{md,html}]
+# charset = utf-8
+# indent_style = space
+# indent_size = 2
+# insert_final_newline = true
+# 2. Tighten Up Shell Script Formatting
+# If using shell scripts:
+# [*.sh]
+# charset = utf-8
+# indent_style = space
+# indent_size = 4
+# insert_final_newline = true
+# 3. Make JSON stricter
+# Some teams prefer 2-space indents for JSON to match common formatting:
+# [*.json]
+# indent_size = 2
+# Or apply it selectively:
+# [{*.test.json,*.config.json}]
+# indent_size = 2
+# 4. YAML Alignment
+# YAML often reads better with 2 spaces:
+# [*.{yml,yaml}]
+# indent_size = 2
+# 5. Auto-Detection Safety Perk
+# If you have varied styles in subdirectories and want to explicitly define overrides, consider scoped rules like:
+# [frontend/**.ts]
+# indent_size = 2
+# ⸻
+# Would you like a project-specific .editorconfig tailored to your frontend/backend structure (e.g., React + Node + Docs + Tests)? I can generate that.
 
-[*]
-end_of_line = lf
-insert_final_newline = true
+# Assuming 'data' and 'graph' are defined from the previous code
 
-[*.{js,jsx,ts,tsx,cjs,json,yml,yaml,css,less,scss}]
-charset = utf-8
-indent_style = space
-indent_size = 4
+# Step 3: Analyze and visualize the graph (example: Venn diagram)
+known_words = set(data["words"].keys())
+generated_words = set(node for node, attr in graph.nodes(data=True) if attr.get("category") == "Generated")
 
-[CNAME]
-insert_final_newline = false
+venn2([known_words, generated_words], ('Known Words', 'Generated Words'))
+plt.title("Known vs. Generated Words")
+plt.show()
+
