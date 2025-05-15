@@ -1,26 +1,97 @@
-name: 🚀 Feature Request / Idea
-description: Suggest a new idea for this project.
-title: "[Feature]: "
-labels: ["enhancement", "triage"]
-body:
-    - type: textarea
-      attributes:
-          label: Feature description
-          description: Describe the issue in detail and why we should add it. To help us out, please poke through our issue tracker and make sure it's not a duplicate issue. Ex. As a user, I can do [...]
-      validations:
-          required: true
-    - type: textarea
-      attributes:
-          label: Implementation Suggestion
-          description: If you have any suggestions on how to design this feature, list them here.
-      validations:
-          required: false
-    - type: textarea
-      attributes:
-          label: Anything else?
-          description: |
-              Links? References? Anything that will give us more context about how to deliver your feature!
+# prompt: Great start — this is a clean and functional GitHub issue form for feature requests. Below is an enhanced version that builds in perks, personality, and subtle gamification, while still being fully compatible with GitHub’s issue forms format.
+# You can copy this into .github/ISSUE_TEMPLATE/feature_request.yml and customize further if you’d like project-specific flair:
+# ⸻
+# name: "🚀 Feature Request / Idea"
+# description: Suggest a powerful new feature or idea to enhance this project.
+# title: "[Feature]: "
+# labels: ["enhancement", "triage"]
+# body:
+#   - type: markdown
+#     attributes:
+#       value: |
+#         ## ✨ Welcome, Feature Alchemist!
+#         You're about to help shape the future. Got a neat enhancement idea, UI tweak, or powerful feature in mind? Let's co-create.
+#   - type: textarea
+#     attributes:
+#       label: Feature Description
+#       description: |
+#         What is the idea? What problem does it solve?  
+#         Please be clear, compelling, and concise.  
+#         _(Bonus Perk: Great descriptions often lead to faster implementation.)_
+#         Example:  
+#         > As a user, I want to [do something], so that [benefit or outcome].
+#       placeholder: |
+#         As a user, I want to ____, so that ____.
+#         This feature would help by ____.
+#       value: |
+#       validations:
+#         required: true
+#   - type: textarea
+#     attributes:
+#       label: Implementation Suggestion
+#       description: |
+#         Got a sketch in mind for how this could be built? 
+#         Add possible APIs, data flow ideas, or UX behaviors. 
+#         _(Perk: Contribute here and level up to Feature Architect!)_
+#       placeholder: |
+#         This could be implemented by...
+#         I imagine it working like...
+#       validations:
+#         required: false
+#   - type: textarea
+#     attributes:
+#       label: Anything Else?
+#       description: |
+#         Any related links, research, screenshots, or prior art? 
+#         Drop them here. This context helps us make better decisions.
+#         **Tip:** You can drag files int
 
-              Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
-      validations:
-          required: false
+import networkx as nx
+import matplotlib.pyplot as plt
+from matplotlib_venn import venn2
+
+# Sample data (replace with your actual data)
+data = {
+    "words": {
+        "apple": {"category": "Fruit", "color": "Red"},
+        "banana": {"category": "Fruit", "color": "Yellow"},
+        "orange": {"category": "Fruit", "color": "Orange"},
+        "grape": {"category": "Fruit", "color": "Purple"}
+    },
+    "transformations": [
+        {"from": "apple", "to": "ApplePie", "type": "Baking"},
+        {"from": "banana", "to": "BananaBread", "type": "Baking"},
+        {"from": "orange", "to": "OrangeJuice", "type": "Juicing"},
+        {"from": "grape", "to": "grapefruit", "type": "Mutation"}
+    ]
+}
+
+# Step 2: Create the directed graph
+graph = nx.DiGraph()
+# Add known word nodes
+for word, metadata in data["words"].items():
+    graph.add_node(word, **metadata)
+# Add missing destination words as 'Generated' nodes
+for transformation in data["transformations"]:
+    to_word = transformation["to"]
+    if to_word not in graph:
+        graph.add_node(
+            to_word,
+            category="Generated",
+            numeric=[ord(c) for c in to_word]
+        )
+# Add transformation edges
+for transformation in data["transformations"]:
+    graph.add_edge(
+        transformation["from"],
+        transformation["to"],
+        transformation=transformation["type"]
+    )
+
+# Step 3: Analyze and visualize the graph (example: Venn diagram)
+known_words = set(data["words"].keys())
+generated_words = set(node for node, attr in graph.nodes(data=True) if attr.get("category") == "Generated")
+
+venn2([known_words, generated_words], ('Known Words', 'Generated Words'))
+plt.title("Known vs. Generated Words")
+plt.show()
