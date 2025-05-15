@@ -1,11 +1,144 @@
-blank_issues_enabled: true
-contact_links:
-    - name: General Question
-      url: https://github.com/wavetermdev/waveterm/discussions
-      about: Have a question on something? Start a new discussion thread.
-    - name: Engage with us directly on Discord
-      url: https://discord.gg/XfvZ334gwU
-      about: Join our Discord server to get updates on new features, bug fixes, and more.
-    - name: Review open issues
-      url: https://github.com/wavetermdev/waveterm/issues
-      about: Please check if your issue isn't already there.
+Absolutely — let’s turn your issue template discussion into a strategic toolkit that not only gathers great information but rewards contributors and guides collaboration with style. Here’s an enhanced version of your template fields with “perks” — built-in motivations and best practices for each section that turn issue submission into a rewarding, clear, and even enjoyable process.
+
+⸻
+
+Enhanced Issue Template with Perks
+
+1. Title
+
+Field:
+[Short Title] - Summarize the Issue in 8 Words or Less
+Perk:
+You get bonus clarity points! A clear title makes it easier for others to search and spot similar issues — earn invisible teamwork XP.
+
+⸻
+
+2. Description
+
+Field:
+What’s going on? Describe the issue or request clearly.
+Perk:
+The better your story, the faster the fix. Well-described issues are 3x more likely to get solved without needing follow-up.
+
+⸻
+
+3. Steps to Reproduce (if applicable)
+
+Field:
+1. Go to...\n2. Click on...\n3. Observe this behavior...
+Perk:
+You’re helping build a time machine. Repro steps let devs travel to the exact moment the issue occurs. That’s wizardry.
+
+⸻
+
+4. Expected Behavior
+
+Field:
+What did you expect to happen instead?
+Perk:
+This sets the true north. A clear expectation turns “I found a bug” into “Let’s fix the gap between intention and reality.”
+
+⸻
+
+5. Actual Behavior
+
+Field:
+What actually happened when you followed the steps?
+Perk:
+Think of this as your bug’s autobiography — honest, unfiltered, and vital to solving the mystery.
+
+⸻
+
+6. Screenshots / Recordings (if applicable)
+
+Field:
+Drag and drop images or links to screen recordings.
+Perk:
+A picture is worth a thousand debugger steps. Plus, visual reporters unlock the “Clarity Booster” perk — issues get noticed faster.
+
+⸻
+
+7. Environment Info
+
+Field:
+OS, Browser, App version, etc.
+Perk:
+You’re helping us trace the weather around the storm. Environment details can be the secret culprit or the key to solving it.
+
+⸻
+
+8. Logs / Error Output (if applicable)
+
+Field:
+Paste relevant logs or stack traces inside triple backticks.
+Perk:
+This is your spellbook. Logs contain the incantations that caused the glitch. Share them wisely.
+
+⸻
+
+9. Related Issues or Context
+
+Field:
+Link any relevant issues, discussions, or context.
+Perk:
+You’re building bridges between islands. Connecting issues helps prevent duplication and uncovers hidden patterns.
+
+⸻
+
+10. Severity / Priority
+
+Field:
+[ ] Blocker | [ ] High | [ ] Medium | [ ] Low
+Perk:
+You’re helping us steer the ship. Knowing what’s urgent lets the team focus fire where it matters.
+
+⸻
+
+11. Suggested Solution (Optional)
+
+Field:
+If you have an idea, sketch it here.
+Perk:
+Become a co-designer. Even half-baked suggestions spark new perspectives. Plus, it earns you Contributor Insight XP.
+
+⸻
+
+12. Labels / Tags
+
+Field:
+Add labels if you can: bug, enhancement, performance, UI, etc.
+Perk:
+Categorization is alchemy — turn chaos into clarity. Tagged issues live longer and get reviewed faster.
+
+⸻
+
+Bonus Section: Issue Wizardry Scorecard (For Fun Gamification)
+
+You could add this as an auto-calculated “XP Tracker” for contributors:
+
+**Issue Wizardry Scorecard**
+- Clear title: +10 XP
+- Repro steps provided: +20 XP
+- Screenshot attached: +15 XP
+- Logs provided: +15 XP
+- Suggested fix offered: +30 XP
+- Labeled correctly: +10 XP
+**Total: 100 XP possible per issue!**
+
+
+⸻
+
+Your Turn
+
+Let’s tailor this. Does your project focus on:
+	•	Technical systems (backend/frontend)?
+	•	Symbolic logic / ontology?
+	•	Creative or user-facing interfaces?
+	•	Real-time collaboration or AI-assisted feedback?
+
+Each of these could have unique perks. For example:
+	•	Symbolic Systems might reward clear conceptual mapping.
+	•	Creative tools might highlight narrative clarity or aesthetic bugs.
+	•	AI-integrated tools might surface “Model drift,” “Unexpected hallucination,” or “Prompt instability” as custom categories.
+
+Would you like me to assemble a project-specific version of this issue template with relevant perks based on your current work (e.g., Symbolic OS, Predictive Engine)?
