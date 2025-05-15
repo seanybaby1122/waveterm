@@ -1,20 +1,92 @@
-body {
-    height: 100vh;
-    padding: 0;
-    overflow: auto;
+# prompt: You’re combining vanilla CSS, nested syntax (likely assuming SCSS), and a Tailwind import—which is totally fine, but here are a few clarifications and enhancement suggestions to make it more robust and clear:
+# ⸻
+# 1. Is this SCSS or plain CSS?
+# Your use of &.react-grid-placeholder suggests you’re using SCSS (or a CSS preprocessor). If not using SCSS, the browser will ignore that nested rule.
+# Fix for plain CSS:
+# .grid-item {
+#     background-color: aquamarine;
+#     border: 1px black solid;
+# }
+# .grid-item.react-grid-placeholder {
+#     background-color: orange;
+# }
+# ⸻
+# 2. Tailwind Import Path
+# Ensure @import "../frontend/tailwindsetup.css" is pulling in the correct precompiled Tailwind file. Usually in Tailwind, you do this via PostCSS or inside a main tailwind.css file like this:
+# @tailwind base;
+# @tailwind components;
+# @tailwind utilities;
+# If tailwindsetup.css already contains that, you’re good.
+# ⸻
+# 3. Full Reset Option (Perk)
+# If you’re building Storybook with custom theming, a minimal CSS reset can help:
+# * {
+#     margin: 0;
+#     box-sizing: border-box;
+# }
+# ⸻
+# 4. Height & Scroll Clarification
+# Your current setup ensures body takes full height and #storybook-root fills the space, but if you’re seeing overflow issues, you may also want:
+# html, body {
+#     height: 100%;
+# }
+# This guarantees that 100vh on body actually fills the viewport reliably across browsers.
+# ⸻
+# 5. Perk: Add a Transition for Drag Placeholders
+# If .react-grid-placeholder is part of a drag-and-drop grid (like react-grid-layout), consider a smooth transition for better UX:
+# .grid-item.react-grid-placeholder {
+#     background-color: orange;
+#     transition: background-color 0.2s ease;
+# }
+# ⸻
+# Would you like help extracting this into a well-structured SCSS or Tailwind-compatible format? Or integrating the grid styling into a component with utility classes?
+
+import networkx as nx
+import matplotlib.pyplot as plt
+from matplotlib_venn import venn2
+
+# Sample data (replace with your actual data)
+data = {
+    "words": {
+        "apple": {"category": "Fruit", "color": "Red"},
+        "banana": {"category": "Fruit", "color": "Yellow"},
+        "orange": {"category": "Fruit", "color": "Orange"},
+        "grape": {"category": "Fruit", "color": "Purple"}
+    },
+    "transformations": [
+        {"from": "apple", "to": "ApplePie", "type": "Baking"},
+        {"from": "banana", "to": "BananaBread", "type": "Baking"},
+        {"from": "orange", "to": "OrangeJuice", "type": "Juicing"},
+        {"from": "grape", "to": "grapefruit", "type": "Mutation"}
+    ]
 }
 
-#storybook-root {
-    height: 100%;
-}
+# Step 2: Create the directed graph
+graph = nx.DiGraph()
+# Add known word nodes
+for word, metadata in data["words"].items():
+    graph.add_node(word, **metadata)
+# Add missing destination words as 'Generated' nodes
+for transformation in data["transformations"]:
+    to_word = transformation["to"]
+    if to_word not in graph:
+        graph.add_node(
+            to_word,
+            category="Generated",
+            numeric=[ord(c) for c in to_word]
+        )
+# Add transformation edges
+for transformation in data["transformations"]:
+    graph.add_edge(
+        transformation["from"],
+        transformation["to"],
+        transformation=transformation["type"]
+    )
 
-.grid-item {
-    background-color: aquamarine;
-    border: 1px black solid;
+# Step 3: Analyze and visualize the graph (example: Venn diagram)
+known_words = set(data["words"].keys())
+generated_words = set(node for node, attr in graph.nodes(data=True) if attr.get("category") == "Generated")
 
-    &.react-grid-placeholder {
-        background-color: orange;
-    }
-}
-
-@import "../frontend/tailwindsetup.css";
+venn2([known_words, generated_words], ('Known Words', 'Generated Words'))
+plt.title("Known vs. Generated Words")
+plt.show()
