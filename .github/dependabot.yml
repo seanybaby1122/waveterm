@@ -1,159 +1,93 @@
-version: 2
-updates:
-    - package-ecosystem: "npm"
-      directory: "/"
-      schedule:
-          interval: "weekly"
-          day: "friday"
-          time: "09:00"
-          timezone: "America/Los_Angeles"
-      groups:
-          dev-dependencies-patch:
-              dependency-type: "development"
-              exclude-patterns:
-                  - "*storybook*"
-                  - "*electron*"
-                  - "jotai"
-                  - "react"
-                  - "@types/react"
-                  - "*react-dom"
-                  - "*docusaurus*"
-              update-types:
-                  - "patch"
-          dev-dependencies-minor:
-              dependency-type: "development"
-              exclude-patterns:
-                  - "*storybook*"
-                  - "*electron*"
-                  - "jotai"
-                  - "react"
-                  - "@types/react"
-                  - "*react-dom"
-                  - "*docusaurus*"
-              update-types:
-                  - "minor"
+# prompt: This dependabot.yml config is already super thorough — great use of grouped updates and scoped patterns! To add neat perks while keeping the config clean and functional, here are some enhancements and recommendations:
+# ⸻
+# 1. Add Labels for PR Management
+# Helps triage and automate based on update type or group.
+#       labels:
+#         - "dependencies"
+#         - "auto-update"
+# Add under each updates: section if desired, or apply globally using PR customization.
+# ⸻
+# 2. Enable Auto-Merge for Patches (Optional Perk)
+# If CI passes and you’d like low-risk patches merged automatically:
+#       open-pull-requests-limit: 10
+#       commit-message:
+#         prefix: "deps"
+#         include: "scope"
+#       allow:
+#         - dependency-type: "all"
+#       automerge: true
+#       automerge-type: "pr"
+# Or, more conservatively:
+#       automerge: true
+#       automerge-type: "pr"
+#       allow:
+#         - dependency-type: "development"
+#           update-type: "patch"
+# You could even limit auto-merge to Storybook patch bumps only, as a mini “perk” for safe dependencies.
+# ⸻
+# 3. Add Versioning Discipline (Perk: Confidence!)
+# Keepers of the codebase love semantic boundaries. Labeling PRs by update-type (patch/minor/major) lets tools like Renovate or your own bots act more intelligently.
+#       commit-message:
+#         prefix: "chore"
+#         include: "scope"
+# ⸻
+# 4. Add Notifications (Perk: Don’t Miss Major Updates)
+# For major updates in specific groups (e.g., React), you can route Slack/webhook/email alerts or create dedicated GitHub Projects.
+# While dependabot.yml doesn’t support built-in alerts, pairing this setup with a GitHub Actions workflow that watches for labels like dependencies, react-major, etc., is a solid perk move.
+# ⸻
+# 5. Consider Pinning for Legacy or Safety
+# You can lock versions for experimental or risky packages (e.g., electron) by adding an allowlist or skip in critical environments.
+# ⸻
+# Example of a Perkified Entry (React Group):
+#           react-major:
+#               patterns:
 
-          prod-dependencies-patch:
-              dependency-type: "production"
-              exclude-patterns:
-                  - "*storybook*"
-                  - "*electron*"
-                  - "jotai"
-                  - "react"
-                  - "@types/react"
-                  - "*react-dom"
-                  - "*docusaurus*"
-              update-types:
-                  - "patch"
-          prod-dependencies-minor:
-              dependency-type: "production"
-              exclude-patterns:
-                  - "*storybook*"
-                  - "*electron*"
-                  - "jotai"
-                  - "react"
-                  - "@types/react"
-                  - "*react-dom"
-                  - "*docusaurus*"
-              update-types:
-                  - "minor"
+import networkx as nx
+import matplotlib.pyplot as plt
+from matplotlib_venn import venn2
 
-          storybook-patch:
-              patterns:
-                  - "*storybook*"
-              update-types:
-                  - "patch"
-          storybook-minor:
-              patterns:
-                  - "*storybook*"
-              update-types:
-                  - "minor"
-          storybook-major:
-              patterns:
-                  - "*storybook*"
-              update-types:
-                  - "major"
+# Sample data (replace with your actual data)
+data = {
+    "words": {
+        "apple": {"category": "Fruit", "color": "Red"},
+        "banana": {"category": "Fruit", "color": "Yellow"},
+        "orange": {"category": "Fruit", "color": "Orange"},
+        "grape": {"category": "Fruit", "color": "Purple"}
+    },
+    "transformations": [
+        {"from": "apple", "to": "ApplePie", "type": "Baking"},
+        {"from": "banana", "to": "BananaBread", "type": "Baking"},
+        {"from": "orange", "to": "OrangeJuice", "type": "Juicing"},
+        {"from": "grape", "to": "grapefruit", "type": "Mutation"}
+    ]
+}
 
-          electron-patch:
-              patterns:
-                  - "*electron*"
-              update-types:
-                  - "patch"
-          electron-minor:
-              patterns:
-                  - "*electron*"
-              update-types:
-                  - "minor"
-          electron-major:
-              patterns:
-                  - "*electron*"
-              update-types:
-                  - "major"
+# Step 2: Create the directed graph
+graph = nx.DiGraph()
+# Add known word nodes
+for word, metadata in data["words"].items():
+    graph.add_node(word, **metadata)
+# Add missing destination words as 'Generated' nodes
+for transformation in data["transformations"]:
+    to_word = transformation["to"]
+    if to_word not in graph:
+        graph.add_node(
+            to_word,
+            category="Generated",
+            numeric=[ord(c) for c in to_word]
+        )
+# Add transformation edges
+for transformation in data["transformations"]:
+    graph.add_edge(
+        transformation["from"],
+        transformation["to"],
+        transformation=transformation["type"]
+    )
 
-          docusaurus-patch:
-              patterns:
-                  - "*docusaurus*"
-              update-types:
-                  - "patch"
-          docusaurus-minor:
-              patterns:
-                  - "*docusaurus*"
-              update-types:
-                  - "minor"
-          docusaurus-major:
-              patterns:
-                  - "*docusaurus*"
-              update-types:
-                  - "major"
+# Step 3: Analyze and visualize the graph (example: Venn diagram)
+known_words = set(data["words"].keys())
+generated_words = set(node for node, attr in graph.nodes(data=True) if attr.get("category") == "Generated")
 
-          react-patch:
-              patterns:
-                  - "react"
-                  - "@types/react"
-                  - "*react-dom"
-              update-types:
-                  - "patch"
-          react-minor:
-              patterns:
-                  - "react"
-                  - "@types/react"
-                  - "*react-dom"
-              update-types:
-                  - "minor"
-          react-major:
-              patterns:
-                  - "react"
-                  - "@types/react"
-                  - "*react-dom"
-              update-types:
-                  - "major"
-
-          jotai-patch:
-              patterns:
-                  - "jotai"
-              update-types:
-                  - "patch"
-          jotai-minor:
-              patterns:
-                  - "jotai"
-              update-types:
-                  - "minor"
-          jotai-major:
-              patterns:
-                  - "jotai"
-              update-types:
-                  - "major"
-    - package-ecosystem: "gomod"
-      directory: "/"
-      schedule:
-          interval: "weekly"
-          day: "friday"
-          time: "09:00"
-          timezone: "America/Los_Angeles"
-    - package-ecosystem: "github-actions"
-      directory: "/.github/workflows"
-      schedule:
-          interval: "weekly"
-          day: "friday"
-          time: "09:00"
-          timezone: "America/Los_Angeles"
+venn2([known_words, generated_words], ('Known Words', 'Generated Words'))
+plt.title("Known vs. Generated Words")
+plt.show()
